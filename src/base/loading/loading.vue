@@ -12,9 +12,6 @@
         type: String,
         default: '正在载入...'
       }
-    },
-    mounted() {
-      console.log(this.title)
     }
   }
 </script>

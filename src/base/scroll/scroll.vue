@@ -20,6 +20,10 @@
       data: {
         type: Array,
         default: [1]
+      },
+      listenScroll: {  // 是否监听滚动事件
+        type: Boolean,
+        default: false
       }
     },
     mounted() {
@@ -36,7 +40,13 @@
           probeType: this.probeType,
           click: this.click
         })
-        console.log(222)
+
+        if (this.listenScroll) {
+          let me = this
+          this.scroll.on('scroll', (pos) => {
+            me.$emit('scroll', pos)
+          })
+        }
       },
       enable() {
         this.scroll && this.scroll.enable()
@@ -46,11 +56,16 @@
       },
       refresh() {
         this.scroll && this.scroll.refresh()
+      },
+      scrollTo() {
+        this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
+      },
+      scrollToElement() {
+        this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments)
       }
     },
     watch: {
       data() {
-        console.log(1111)
         setTimeout(() => {
           this.refresh()
         }, 20)
